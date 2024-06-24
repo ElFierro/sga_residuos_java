@@ -1,0 +1,311 @@
+ <section class="text-gray-600 body-font">
+    <div class="container px-5 py-20 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Residuos Aprovechables</h1>
+     </div>
+      <div class="container mx-auto flex px-5  md:flex-row flex-col items-center">
+        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-2 md:mb-0">
+          <div id="chart1" class="w-full">
+            <apx-chart [series]="usableWaste.series" [chart]="usableWaste.chart" [title]="usableWaste.title" [plotOptions]="usableWaste.plotOptions" [labels]="usableWaste.labels"></apx-chart>
+          </div>
+        </div>
+        <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+            <img src="assets\images\waste\chart\aprovechable\aprovechable.jpg" alt="Descripción de la imagen" class="mx-auto mb-6 rounded-lg w-full">
+            <p class="mb-8 leading-relaxed">Los residuos aprovechables, también conocidos como residuos reciclables o residuos reutilizables, son aquellos materiales que pueden ser transformados o recuperados para darles un nuevo uso o valor. Estos residuos suelen incluir materiales como papel, cartón, plástico, vidrio, metales y textiles, entre otros. Al recuperar y reciclar estos materiales, se reduce la cantidad de residuos enviados a vertederos, se conservan recursos naturales y se disminuye el impacto ambiental asociado con la producción de nuevos materiales.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap m-4">
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="papel-y-carton" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\papel-y-carton.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Papel y Cartón</h2>
+              <p class="mb-4">Periódicos, revistas, cajas de cartón, folletos y papelería en general.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="plasticos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\plastico.jpeg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Plásticos</h2>
+              <p class="mb-4">Botellas de PET, envases de HDPE, bolsas plásticas, y otros plásticos reciclables.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="vidrio" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\vidrio.jpeg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Vidrio</h2>
+              <p class="mb-4">Botellas, frascos, y envases de vidrio (transparente, verde y ámbar).</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="metales" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\metales.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Metales</h2>
+              <p class="mb-4">Latas de aluminio, latas de acero, chatarra metálica.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="textiles" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\textiles.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Textiles</h2>
+              <p class="mb-4">Ropa, telas, y otros productos textiles reciclables.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="tetrabrik" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\aprovechable\tetrabrik.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Tetrabrik</h2>
+              <p class="mb-4">Envases de cartón para líquidos (leche, jugos).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Residuos Orgánicos</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Aquí se encuentran los tipos de residuos orgánicos:</p>
+      </div>
+      <div class="container mx-auto flex px-5  md:flex-row flex-col items-center">
+        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-2 md:mb-0">
+          <div id="chart1" class="w-full">
+            <apx-chart
+              [series]="organicWaste.series"
+              [chart]="organicWaste.chart"
+              [title]="organicWaste.title"
+              [plotOptions]="organicWaste.plotOptions" 
+              [labels]="organicWaste.labels"
+            ></apx-chart>
+          </div>
+        </div>
+        <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+            <img src="assets\images\waste\chart\organico\organico.jpg" alt="Descripción de la imagen" class="mx-auto mb-6 rounded-lg w-full">
+            <p class="mb-8 leading-relaxed">Los residuos orgánicos son materiales biodegradables derivados de organismos vivos, como plantas y animales, que alguna vez estuvieron vivos o son productos de su metabolismo. Estos residuos pueden incluir restos de alimentos, desechos de jardín, y otros materiales compostables. Son diferentes de los residuos inorgánicos, como plásticos y metales, que no se descomponen fácilmente en la naturaleza. 
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap m-4">
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-alimentos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\organico\residuos-de-alimentos.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos de Alimentos</h2>
+              <p class="mb-4">Restos de frutas, verduras, cáscaras de huevo, posos de café, y otros desechos de cocina.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-jardineria" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\organico\residuos-de-jardineria.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos de Jardinería</h2>
+              <p class="mb-4">Hojas, césped cortado, ramas, y otros restos de plantas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-poda" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\organico\residuos-de-poda.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos de Poda</h2>
+              <p class="mb-4">Material resultante de la poda de árboles y arbustos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/2">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="restos-comida-preparada" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\organico\restos-de-comida-preparada.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Restos de Comida Preparada</h2>
+              <p class="mb-4">Restos de comidas cocinadas que no se pueden consumir.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 mx-auto">
+        <div class="flex flex-col text-center w-full mb-20">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Residuos no aprovechables</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Aquí se encuentran los tipos de residuos que se pueden aprovechar:</p>
+        </div>
+        <div class="container mx-auto flex px-5  md:flex-row flex-col items-center">
+            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-2 md:mb-0">
+                <div id="chart1" class="w-full">
+                    <apx-chart
+                        [series]="notUsableWaste.series"
+                        [chart]="notUsableWaste.chart"
+                        [title]="notUsableWaste.title"
+                        [plotOptions]="notUsableWaste.plotOptions"
+                        [labels]="notUsableWaste.labels"
+                    ></apx-chart>
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <img src="assets\images\waste\chart\no-aprovechable\no-aprovechables.jpg" alt="Descripción de la imagen" class="mx-auto mb-6 rounded-lg w-full">
+                <p class="mb-8 leading-relaxed">
+                    Los residuos no aprovechables, también conocidos como residuos no reciclables o residuos no reutilizables, son aquellos materiales que no pueden ser transformados o recuperados para darles un nuevo uso o valor de manera práctica o eficiente. Estos residuos suelen incluir materiales que no son biodegradables o que no tienen un mercado o proceso de reciclaje establecido. Ejemplos comunes de residuos no aprovechables son los productos de plástico de un solo uso, ciertos tipos de empaques y envases no reciclables, materiales contaminados, entre otros
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-wrap m-4">
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="residuo-sanitario" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\residuos-sanitarios.jpg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Residuos Sanitarios</h2>
+                        <p class="mb-4">Pañales, toallas higiénicas, papel higiénico, y otros productos de higiene personal.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="papel-y-carton-contaminados" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\papel-contaminados.jpeg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Papel y Cartón Contaminados</h2>
+                        <p class="mb-4">Papel encerado, cartón plastificado, servilletas y pañuelos usados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="plasticos-no-reciclables" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\plasticos-no-reciclables.jpg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Plásticos no Reciclables</h2>
+                        <p class="mb-4">Envases de alimentos sucios, plásticos mezclados, plásticos termoestables.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="residuos-electronicos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\residuos-electronicos.jpg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Residuos Electrónicos</h2>
+                        <p class="mb-4">Dispositivos electrónicos dañados que no pueden ser reciclados o recuperados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="vidrio-no-reciclable" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\vidrio-no-reciclable.jpg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Vidrio no Reciclable</h2>
+                        <p class="mb-4">Cristales rotos, espejos, cerámicas, y bombillas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 lg:w-1/3">
+                <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img alt="residuos-de-construccion" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\no-aprovechable\demolicion.jpg">
+                    <div class="flex-grow sm:pl-8">
+                        <h2 class="title-font font-medium text-lg text-gray-900">Residuos de Construcción y Demolición</h2>
+                        <p class="mb-4">Escombros, cemento, ladrillos con restos de materiales peligrosos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="text-gray-600 body-font">
+    <div class="container px-5 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Residuos Peligrosos</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Aquí se encuentran los tipos de residuos peligrosos que requieren un manejo especial:</p>
+      </div>
+      <div class="container mx-auto flex px-5 md:flex-row flex-col items-center">
+        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-2 md:mb-0">
+          <div id="chart1" class="w-full">
+            <apx-chart
+              [series]="dangerousWaste.series"
+              [chart]="dangerousWaste.chart"
+              [title]="dangerousWaste.title"
+              [plotOptions]="dangerousWaste.plotOptions"
+              [labels]="dangerousWaste.labels"
+            ></apx-chart>
+          </div>
+        </div>
+        <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+          <img src="assets\images\waste\chart\peligrosos\peligrosos.jpg" alt="Descripción de la imagen" class="mx-auto mb-6 rounded-lg w-full">
+          <p class="mb-8 leading-relaxed">Los residuos peligrosos son aquellos desechos que, debido a sus características físicas, químicas o biológicas, presentan un riesgo significativo para la salud humana o el medio ambiente. Estos residuos pueden ser inflamables, corrosivos, reactivos, tóxicos, infecciosos o radioactivos, y deben ser manejados con precaución y de acuerdo a regulaciones específicas para prevenir daños.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap m-4">
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="quimicos-peligrosos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\quimicos-peligrosos.jpeg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Químicos Peligrosos</h2>
+              <p class="mb-4">Solventes, ácidos, bases, y productos químicos de limpieza.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-biologicos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\residuos-biologicos.PNG">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos Biológicos</h2>
+              <p class="mb-4">Materiales infectados, como jeringas usadas, gasas y otros desechos médicos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-toxicos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\residuos-toxicos.jpeg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos Tóxicos</h2>
+              <p class="mb-4">Pilas, baterías, pinturas, y pesticidas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-inflamables" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\residuos-inflamables.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos Inflamables</h2>
+              <p class="mb-4">Combustibles, aceites usados, y ciertos tipos de plásticos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-corrosivos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\residuos-corrosivos.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos Corrosivos</h2>
+              <p class="mb-4">Ácidos y bases fuertes, productos de limpieza industriales.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 lg:w-1/3">
+          <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+            <img alt="residuos-radiactivos" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="assets\images\waste\chart\peligrosos\residuos-radioactivos.jpg">
+            <div class="flex-grow sm:pl-8">
+              <h2 class="title-font font-medium text-lg text-gray-900">Residuos Radiactivos</h2>
+              <p class="mb-4">Materiales usados en hospitales y en algunas industrias, como residuos de equipos de rayos X.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

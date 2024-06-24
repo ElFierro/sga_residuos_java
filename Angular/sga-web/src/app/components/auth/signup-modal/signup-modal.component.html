@@ -1,0 +1,208 @@
+<div
+  *ngIf="showModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <!--content-->
+    <div
+      class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-100 sm:p-5"
+    >
+      <!-- Modal header -->
+      <div
+        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+      >
+        <h3 class="text-lg font-semibold text-green-600 dark:text-green-700">
+         Crear cuenta
+        </h3>
+        <button
+          type="button"
+          class="text-gray-700 bg-transparent hover:bg-gray-200 hover:text-gray-100 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-100 dark:hover:text-green-600"
+          data-modal-toggle="defaultModal"
+          (click)="toggleModal()"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <form class="space-y-4" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="clickRegister()">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-700">Nombre: *</label>
+          <input   id="name"
+          name="name"
+          formControlName="name"
+          type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nombre completo" required>
+          @if(nameField.hasError('required') && nameField.touched){
+            <div class="flex items-center text-sm text-red-600 " role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                Ingrese el nombre.
+              </div>
+            </div>
+          }
+          @if(nameField.hasError('minlength')){
+            <div class="flex items-center text-sm text-red-600 " role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                Debe tener como minimo 10 caracteres.
+              </div>
+            </div>
+          }
+          @if(nameField.hasError('maxlength')){
+            <div class="flex items-center text-sm text-red-600 " role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                El nombre no puede tener mas de 30 caracteres.
+              </div>
+            </div>
+          }
+          @if(nameField.hasError('pattern')){
+            <div class="flex items-center text-sm text-red-600 " role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                El nombre no debe contener numeros o caraceteres especiales.
+              </div>
+            </div>
+          }
+        </div>
+        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-700">Correo electronico *</label>
+            <input  style="text-transform: lowercase"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="name@company.com"
+            formControlName="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+            @if(emailField.hasError('required')  && emailField.touched){
+              <div class="flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  Ingrese su correo electronico.
+                </div>
+              </div>
+            } @if(emailField.hasError('pattern') && emailField.touched){
+              <div class="flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  Ingrese un correo valido.
+                </div>
+              </div>
+            }@if(emailField.hasError('notAvailable')){
+              <div class="flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  Este correo ya esta registrado.
+                </div>
+              </div>
+            }
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-700">Ciudad *</label>
+             <select id="city" name="city" formControlName="city"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-600 dark:placeholder-gray-700 dark:text-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            >
+              <option>Bogota</option>
+            </select>
+            @if(cityField.hasError('required') && cityField.touched){
+              <div class="flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                  <div>
+                    Seleccione la ciudad.
+                  </div>
+                </div>
+              }
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-700">Contraseña *</label>
+            <input [type]="changetype?'password':'text'"
+            id="password"
+            name="password"
+            formControlName="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+            <div class="flex items-start py-1">
+              <div class="flex items-center h-5">
+                <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 " (click)="viewpass()"/>
+              </div>
+              <label for="terms" class="ms-2 text-sm text-gray-700 text-xs ">Mostrar las contraseñas </label>
+            </div>
+            @if(passwordField.hasError('customPasswordValidator') && passwordField.touched){
+              <div class="py-1 flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  La contraseña debe tener al menos una mayúscula, minúscula, simbolo, número y mayor a 8 caracteres.
+                </div>
+              </div>
+            }
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-700">Confirmar contraseña *</label>
+            <input [type]="changetype?'password':'text'"
+            id="confirmPassword"
+            name="confirmPassword"
+            formControlName="confirmPassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+            @if(formGroup.hasError('crossConfirmPasswordError')&& confirmPasswordField.touched){
+              <div class="py-1 flex items-center text-sm text-red-600 " role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  La contraseña no coincide, verifique.
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="flex justify-center">
+          
+          <button type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          [disabled]="isSaving">Registrarme</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="opacity-70 fixed inset-0 z-40 bg-black"></div>
+
+
+
+
+

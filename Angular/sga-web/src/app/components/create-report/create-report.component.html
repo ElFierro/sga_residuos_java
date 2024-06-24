@@ -1,0 +1,95 @@
+<section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-12 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+          Estás creando un reporte
+        </h1>
+      </div>
+      <div>
+        <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+          <div class="lg:w-1/2 md:w-2/3 mx-auto bg-zinc-100 rounded-lg p-8 flex">
+            <div class="flex flex-wrap -m-2">
+  
+              <!-- Description Field -->
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="description" class="leading-7 text-sm text-gray-600">Descripción</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    formControlName="description"
+                    class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    placeholder="Ingresa la descripción del reporte"
+                  ></textarea>
+                  <p *ngIf="reportForm.controls['description'].invalid && reportForm.controls['description'].touched" class="invalid-feedback d-block">
+                    {{ getDescriptionErrorMessage() }}
+                  </p>
+                  <p class="text-sm text-gray-600">{{ getRemainingCharacters() }} caracteres restantes</p>
+                </div>
+              </div>
+  
+              <!-- Username Field -->
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="username" class="leading-7 text-sm text-gray-600">Nombre de usuario</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    formControlName="username"
+                    class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    placeholder="Ingresa tu nombre de usuario"
+                  />
+                  <p *ngIf="reportForm.controls['username'].invalid && reportForm.controls['username'].touched" class="invalid-feedback d-block">
+                    Ingresa nombre de usuario
+                  </p>
+                </div>
+              </div>
+  
+              <!-- Report Status Field -->
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="report_status" class="leading-7 text-sm text-gray-600">Estado del reporte</label>
+                  <select
+                    id="report_status"
+                    name="report_status"
+                    formControlName="report_status"
+                    class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  >
+                    <option value="" disabled selected>Selecciona el estado del reporte</option>
+                    <option value="Procesar">Procesar</option>
+                    <!-- <option value="recepcionado">Recepcionado</option> -->
+                  </select>
+                  <p *ngIf="reportForm.controls['report_status'].invalid && reportForm.controls['report_status'].touched" class="invalid-feedback d-block">
+                    Ingresa el estado del reporte
+                  </p>
+                </div>
+              </div>
+  
+              <!-- Buttons -->
+              <div class="p-5 w-full">
+                <div class="flex justify-center">
+                  <button
+                    type="button"
+                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg"
+                    routerLink="/reportesusuarios"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="ml-4 inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg"
+                    [disabled]="reportForm.invalid"
+                  >
+                    Crear
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  

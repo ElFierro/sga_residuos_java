@@ -1,0 +1,25 @@
+version: "3.8"
+services:  
+  userapp:
+    build: ./user-app
+    container_name: "userapp-dockercompose"
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb  
+
+  wasteapp:
+    build: ./waste-app
+    container_name: "wasteapp-dockercompose"
+    ports:
+      - 8181:8181
+    depends_on:
+      - mongodb     
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-dockercompose
+    ports:
+      - 27017:27017
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js

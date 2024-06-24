@@ -1,0 +1,7 @@
+.pagination{
+    padding: 20px 16px;
+ }
+ 
+ .my-pagination ::ng-deep .ngx-pagination .current {
+    background: #22c55e;
+ }
