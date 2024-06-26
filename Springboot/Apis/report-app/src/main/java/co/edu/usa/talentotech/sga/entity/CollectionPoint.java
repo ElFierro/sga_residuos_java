@@ -23,6 +23,6 @@ public class CollectionPoint {
     private String id;
     private String location;
     private String details;
-    private String reportedIssues;
+    private String status;
 
 }

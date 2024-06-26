@@ -30,4 +30,25 @@ public class ReportService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+    
+    public List<CollectionPoint> getAllCollectionPoints() {
+        return collectionPointRepository.findAll();
+    }
+
+    public CollectionPoint getCollectionPointById(String id) {
+        return collectionPointRepository.findById(id).orElse(null);
+    }
+
+    public CollectionPoint createCollectionPoint(CollectionPoint collectionPoint) {
+        return collectionPointRepository.save(collectionPoint);
+    }
+
+    public CollectionPoint updateCollectionPoint(String id, CollectionPoint collectionPoint) {
+        collectionPoint.setId(id);
+        return collectionPointRepository.save(collectionPoint);
+    }
+
+    public void deleteCollectionPoint(String id) {
+        collectionPointRepository.deleteById(id);
+    }
 }

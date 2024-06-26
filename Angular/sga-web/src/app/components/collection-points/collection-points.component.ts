@@ -2,8 +2,10 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import Swal from 'sweetalert2';
 import { RouteService } from '../../services/route.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ReportService } from '../../services/report.service';
+import { ReportPoint } from '../../models/report-point.interface';
 
 interface Marker {
   position: google.maps.LatLngLiteral;
@@ -15,7 +17,7 @@ interface Marker {
 @Component({
   selector: 'app-collection-points',
   standalone: true,
-  imports: [GoogleMapsModule, FormsModule, NgFor],
+  imports: [GoogleMapsModule, FormsModule, NgFor, NgIf],
   templateUrl: './collection-points.component.html',
   styleUrls: ['./collection-points.component.css'],
 })
@@ -23,7 +25,9 @@ export class CollectionPointsComponent implements OnInit {
   // Servicios de Google Maps para geocodificación y direcciones
   geocoder = new google.maps.Geocoder();
   directionsService = new google.maps.DirectionsService();
-
+  mostrarHorariosInfo = false;
+  mostrarResiduosInfo= false;
+  mostrarProcesoInfo= false;
   selectedRoute: any; // Variable para almacenar la ruta seleccionada
   routes: any[] = []; // Variable para almacenar la lista de rutas
   // Iconos predeterminados para los marcadores
@@ -40,6 +44,10 @@ export class CollectionPointsComponent implements OnInit {
     lat: 4.707303,
     lng: -74.109462,
   };
+
+  location: string ="";
+  details: string ="";
+  status: string ="";
 
   // Opciones del mapa
   mapOptions: google.maps.MapOptions = {
@@ -68,7 +76,7 @@ export class CollectionPointsComponent implements OnInit {
   ngOnInit() {
     this.getAllRoutes();
   }
-  constructor(private routeService: RouteService) {}
+  constructor(private routeService: RouteService, private reportService: ReportService) {}
   
   getAllRoutes() {
     this.routeService.getAllRoutes().subscribe((routes) => {
@@ -263,5 +271,78 @@ export class CollectionPointsComponent implements OnInit {
     });
   }
   
+  deleteRoute() {
+    if (!this.selectedRoute) {
+      Swal.fire('Error', 'Por favor seleccione una ruta para eliminar', 'error');
+      return;
+    }
+  
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.routeService.deleteRoute(this.selectedRoute.id).subscribe(
+          () => {
+            const index = this.routes.findIndex(route => route.id === this.selectedRoute.id);
+            if (index !== -1) {
+              this.routes.splice(index, 1);
+              this.selectedRoute = null;
+              Swal.fire('Eliminado', 'La ruta ha sido eliminada correctamente', 'success');
+              // Actualizar la lista de rutas después de eliminar una ruta
+              this.getAllRoutes();
+            }
+          },
+          (error) => {
+            Swal.fire('Error', 'Hubo un error al eliminar la ruta', 'error');
+          }
+        );
+      }
+    });
+  }
+
+  openCreateReport(marker: Marker) {
+    Swal.fire({
+      title: 'Crear reporte',
+      html:
+        `<p class="swal2-input">${marker.address}</p>
+         <textarea id="swal-input2" class="swal2-textarea" placeholder="Detalles" [(ngModel)]="details" style="width: 80%;"></textarea>
+        `,
+      focusConfirm: false,
+      showCancelButton: true,
+      preConfirm: () => {
+        const details = (document.getElementById('swal-input2') as HTMLTextAreaElement).value;
+        return {
+          location: marker.address,
+          details: details,
+          status: this.status
+        };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const details = (document.getElementById('swal-input2') as HTMLTextAreaElement).value;
+        const report: ReportPoint = {
+          location: marker.address,
+          details: details,
+          status: "Pendiente"
+        };
+        this.reportService.createCollectionPoint(report).subscribe(
+          (report) => {
+            console.log('Punto de recolección creado:', report);
+            // Aquí puedes mostrar un mensaje de éxito o realizar otras acciones
+          },
+          (error: any) => {
+            console.error('Error al crear el punto de recolección:', error);
+            // Aquí puedes mostrar un mensaje de error o realizar otras acciones
+          }
+        );
+      }
+    });
+  }
   
 }

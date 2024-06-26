@@ -10,7 +10,7 @@
 	</queryString>
 	<field name="location" class="java.lang.String"/>
 	<field name="details" class="java.lang.String"/>
-	<field name="reportedIssues" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
@@ -83,7 +83,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Problemas Reportados]]></text>
+				<text><![CDATA[Estatus]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -123,7 +123,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#707070"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{reportedIssues}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

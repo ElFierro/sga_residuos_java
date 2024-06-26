@@ -13,19 +13,19 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/routes")
+@RequestMapping("/routes")
 public class RouteController {
 
     @Autowired
     private RouteService routeService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Route> createRoute(@RequestBody Route route) {
         Route savedRoute = routeService.saveRoute(route);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRoute);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Route>> getAllRoutes() {
         List<Route> routes = routeService.getAllRoutes();
         return ResponseEntity.ok(routes);

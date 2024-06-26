@@ -31,11 +31,13 @@
       </button>
     </div>
     <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center" [ngClass]="{'hidden md:flex': !isMenuOpen, 'flex flex-col md:flex-row': isMenuOpen}">
-      <a class="mr-5 hover:text-green-600" href="">Inicio</a>
-      <a class="mr-5 hover:text-green-600" href="management-waste">Manejo de residuos</a>
-      <a class="mr-5 hover:text-green-600" href="collection-points">Puntos de recolección</a>
+     
+   <a [routerLink]="[ '/home' ]" routerLinkActive="active" class="mr-5 hover:text-green-600">Inicio</a>
+   <a [routerLink]="[ '/management-waste' ]" routerLinkActive="active"  class="mr-5 hover:text-green-600">Manejo de residuos</a>
+   <a [routerLink]="[ '/collection-points' ]" class="mr-5 hover:text-green-600">Puntos de recolección</a>
       <a class="mr-5 hover:text-green-600" href="report"> Reportes de usuarios</a>
-      <a class="mr-5 hover:text-green-600" href="user">Usuarios</a>
+      <a class="mr-5 hover:text-green-600" href="user" *ngIf="userLoginOn" >Usuarios</a>
+
     </nav>
     <nav class="hidden md:flex md:ml-auto flex-wrap items-center text-base justify-center">
       <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded" (click)="openLoginModal()">Iniciar sesión</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ApexChart, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive, ApexTitleSubtitle, NgApexchartsModule } from 'ng-apexcharts';
 import { WasteService } from '../../../services/waste.service';
 
@@ -24,7 +24,7 @@ interface WasteData {
   templateUrl: './waste-chart.component.html',
   styleUrls: ['./waste-chart.component.css']
 })
-export class WasteChartComponent implements OnInit {
+export class WasteChartComponent implements OnInit, OnDestroy {
   usableWaste: ChartOptions;
   organicWaste: ChartOptions;
   notUsableWaste: ChartOptions;
@@ -41,6 +41,20 @@ export class WasteChartComponent implements OnInit {
   ngOnInit(): void {
     // Cargar los datos al iniciar el componente
     this.loadAllTypeWasteByClassification();
+    // Escuchar el evento visibilitychange
+    document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    // Eliminar el listener cuando el componente se destruya
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+  }
+
+  handleVisibilityChange(): void {
+    if (document.visibilityState === 'visible') {
+      // La pestaña es visible, cargar los datos y actualizar las gráficas
+      this.loadAllTypeWasteByClassification();
+    }
   }
 
   loadAllTypeWasteByClassification() {
@@ -54,12 +68,13 @@ export class WasteChartComponent implements OnInit {
           const notUsableWasteData = data.filter((item: WasteData) => item.classification === 'No aprovechables');
           const dangerousWasteData = data.filter((item: WasteData) => item.classification === 'Peligrosos');
           
-          this.usableWaste = this.createChartOptions(usableWasteData, 'Grafica residuos aprovechables');
-          this.organicWaste = this.createChartOptions(organicWasteData, 'Grafica residuos orgánicos');
-          this.notUsableWaste = this.createChartOptions(notUsableWasteData, 'Grafica residuos no aprovechables');
-          this.dangerousWaste = this.createChartOptions(dangerousWasteData, 'Grafica residuos peligrosos');
-          
-          // Forzar la detección de cambios después de que se carguen los datos
+          // Actualizar las opciones de las gráficas directamente
+          this.usableWaste.series = usableWasteData.map((item: WasteData) => item.weight);
+          this.organicWaste.series = organicWasteData.map((item: WasteData) => item.weight);
+          this.notUsableWaste.series = notUsableWasteData.map((item: WasteData) => item.weight);
+          this.dangerousWaste.series = dangerousWasteData.map((item: WasteData) => item.weight);
+  
+          // Forzar la detección de cambios después de actualizar las opciones de las gráficas
           this.cdr.detectChanges();
         }  
       },
@@ -68,6 +83,7 @@ export class WasteChartComponent implements OnInit {
       },
     });
   }
+  
 
   private createChartOptions(data: WasteData[], title: string): ChartOptions {
     return {
@@ -94,4 +110,5 @@ export class WasteChartComponent implements OnInit {
       }
     };
   }
+  
 }

@@ -1,20 +1,28 @@
 package co.edu.usa.talentotech.sga.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.usa.talentotech.sga.entity.CollectionPoint;
 import co.edu.usa.talentotech.sga.service.ReportService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/reports")
+@RequestMapping("/reports")
 public class ReportController {
 
     @Autowired
@@ -31,5 +39,38 @@ public class ReportController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    
+    @GetMapping("/")
+    public ResponseEntity<List<CollectionPoint>> getAllCollectionPoints() {
+        List<CollectionPoint> collectionPoints = reportService.getAllCollectionPoints();
+        return ResponseEntity.ok(collectionPoints);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CollectionPoint> getCollectionPointById(@PathVariable String id) {
+        CollectionPoint collectionPoint = reportService.getCollectionPointById(id);
+        if (collectionPoint == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(collectionPoint);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<CollectionPoint> createCollectionPoint(@RequestBody CollectionPoint collectionPoint) {
+        CollectionPoint createdCollectionPoint = reportService.createCollectionPoint(collectionPoint);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCollectionPoint);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CollectionPoint> updateCollectionPoint(@PathVariable String id, @RequestBody CollectionPoint collectionPoint) {
+        CollectionPoint updatedCollectionPoint = reportService.updateCollectionPoint(id, collectionPoint);
+        return ResponseEntity.ok(updatedCollectionPoint);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCollectionPoint(@PathVariable String id) {
+    	reportService.deleteCollectionPoint(id);
+        return ResponseEntity.noContent().build();
     }
 }
