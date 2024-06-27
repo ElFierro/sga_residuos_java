@@ -1,0 +1,20 @@
+<section class="bg-white py-16" *ngIf="!userLoginOn">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h2 class="text-3xl font-medium title-font mb-4 text-gray-900">Consejos para una Mejor Gestión de Residuos</h2>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Sigue estos simples consejos para contribuir a una mejor gestión de residuos y reducir tu impacto ambiental.
+        </p>
+      </div>
+      <div class="flex flex-wrap -m-4 text-center">
+        <div class="p-4 md:w-1/3" *ngFor="let tip of tips">
+          <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+            <img [src]="tip.image" [alt]="tip.title" class="h-60 mb-4 mx-auto">
+            <h3 class="title-font font-medium text-lg text-gray-900">{{ tip.title }}</h3>
+            <p class="leading-relaxed text-base">{{ tip.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

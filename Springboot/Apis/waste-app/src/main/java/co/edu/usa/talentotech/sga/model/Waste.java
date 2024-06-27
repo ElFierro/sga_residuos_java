@@ -49,9 +49,6 @@ public class Waste extends Records<Waste> implements java.io.Serializable{
 	@NotBlank(message = ResponseMessages.ERROR_ROUTE_REQUIRED)
 	private String route;
 	
-	@NotNull(message = ResponseMessages.ERROR_EMAIL_REQUIRED)
-	@NotBlank(message = ResponseMessages.ERROR_EMAIL_REQUIRED)
-	@Email
 	private String email;
 	
 	@CreatedDate

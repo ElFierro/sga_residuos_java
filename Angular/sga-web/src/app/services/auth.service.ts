@@ -1,59 +1,81 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { LoginRequest } from '../models/loginRequest';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData: BehaviorSubject<String> =new BehaviorSubject<String>("");
+  currentUserRole: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  currentUserEmail: BehaviorSubject<string> = new BehaviorSubject<string>("")
 
   constructor(private http: HttpClient) { 
-    this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null);
-    this.currentUserData=new BehaviorSubject<String>(sessionStorage.getItem("token") || "");
+    this.currentUserLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token") !== null);
+    this.currentUserRole = new BehaviorSubject<string>(sessionStorage.getItem("role") || "");
+    this.currentUserEmail.next(sessionStorage.getItem("email") || "");
   }
 
-  login(credentials:LoginRequest):Observable<any>{
-    return this.http.post<any>(environment.apiEndpoints.authService+"auth/login",credentials).pipe(
-      tap( (userData) => {
-        sessionStorage.setItem("token", userData.token);
-        this.currentUserData.next(userData.token);
-        this.currentUserLoginOn.next(true);
+  login(credentials: LoginRequest): Observable<any> {
+    return this.http.post<any>(environment.apiEndpoints.authService + "auth/login", credentials).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          sessionStorage.setItem("token", response.token);
+          this.currentUserLoginOn.next(true);
+
+          // Capturar el rol del usuario si está presente en la respuesta
+          if (response.role) {
+            console.log(response.role)
+            sessionStorage.setItem("role", response.role);
+            this.currentUserRole.next(response.role);
+          }
+          if (response.email) {
+            sessionStorage.setItem("email", response.email);
+            this.currentUserEmail.next(response.email);
+          }
+        }
       }),
-      map((userData)=> userData.token),
       catchError(this.handleError)
     );
   }
 
-  logout():void{
+  logout(): void {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("email");
     this.currentUserLoginOn.next(false);
+    this.currentUserRole.next("");
+    this.currentUserEmail.next("");
   }
 
-  private handleError(error:HttpErrorResponse){
-    if(error.status===0){
-      console.error('Se ha producio un error ', error.error);
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('Se ha producido un error', error.error);
+    } else {
+      console.error('El backend ha devuelto un código de estado', error);
     }
-    else{
-      console.error('Backend retornó el código de estado ', error);
-    }
-    return throwError(()=> new Error('Algo falló. Por favor intente nuevamente.'));
+    return throwError(() => new Error('Algo falló. Por favor, inténtelo de nuevo.'));
   }
 
-  get userData():Observable<String>{
-    return this.currentUserData.asObservable();
+  get userRole(): Observable<string> {
+    return this.currentUserRole.asObservable();
   }
 
-  get userLoginOn(): Observable<boolean>{
+  get userLoginOn(): Observable<boolean> {
     return this.currentUserLoginOn.asObservable();
   }
 
-  get userToken():String{
-    return this.currentUserData.value;
+  get userEmail(): Observable<string> {
+    return this.currentUserEmail.asObservable();
   }
 
+  get userToken(): string {
+    return sessionStorage.getItem("token") || "";
+  }
+
+  getUserEmail(): Observable<string> {
+    return this.currentUserEmail.asObservable();
+  }
 }

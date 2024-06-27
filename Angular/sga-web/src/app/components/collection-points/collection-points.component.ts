@@ -6,6 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ReportService } from '../../services/report.service';
 import { ReportPoint } from '../../models/report-point.interface';
+import { AuthService } from '../../services/auth.service';
 
 interface Marker {
   position: google.maps.LatLngLiteral;
@@ -48,6 +49,9 @@ export class CollectionPointsComponent implements OnInit {
   location: string ="";
   details: string ="";
   status: string ="";
+  userLoginOn:boolean=false;
+  isUser: boolean = false;
+ isAdmin: boolean = false;
 
   // Opciones del mapa
   mapOptions: google.maps.MapOptions = {
@@ -75,8 +79,21 @@ export class CollectionPointsComponent implements OnInit {
   // Inicialización del componente
   ngOnInit() {
     this.getAllRoutes();
+
+    this.authService.userLoginOn.subscribe((userLoginOn) => {
+      this.userLoginOn = userLoginOn;
+      if (!userLoginOn) { // Reiniciar roles si no hay sesión activa
+        this.isAdmin = false;
+        this.isUser = false;
+      }
+    });
+  
+    this.authService.userRole.subscribe((role) => {
+      this.isAdmin = role === 'Administrador';
+      this.isUser = role === 'Usuario';
+    });
   }
-  constructor(private routeService: RouteService, private reportService: ReportService) {}
+  constructor(private routeService: RouteService, private reportService: ReportService, private authService: AuthService) {}
   
   getAllRoutes() {
     this.routeService.getAllRoutes().subscribe((routes) => {

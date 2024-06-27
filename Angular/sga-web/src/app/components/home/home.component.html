@@ -1,34 +1,27 @@
+<app-banner
+  imageUrl="assets/banners/banner-reciclaje.png"
+  title="Sistema de gestión de Residuos"
+  subtitle="Transformando residuos en recursos para un futuro sostenible."
+></app-banner>
 
-<section class="banner">
-  <div
-    class="bg-cover bg-center bg-blue-500 text-white relative py-20"
-    style="background-image: url('assets/banners/banner-reciclaje.png')"
-  >
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="container mx-auto text-center relative z-1">
-      <h1 class="text-4xl md:text-6xl font-bold mb-5 py-2">
-        Sistema de gestión de Residuos
-      </h1>
-      <p class="text-lg md:text-xl mb-2 py-2">
-        Transformando residuos en recursos para un futuro sostenible.
-      </p>
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <h2 class="text-3xl text-center text-gray-900 font-medium mb-8">¿Cómo funciona nuestro proceso de gestión de residuos?</h2>
+    <p class="text-lg text-center text-gray-900 leading-relaxed mb-12">El proceso de gestión de residuos que hemos diseñado consta de varias etapas:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <ng-container *ngFor="let stage of stages">
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          <img [src]="stage.imageUrl" alt="Imagen de {{ stage.title }}" class="w-full h-64 object-cover object-center">
+          <div class="p-6">
+            <h2 class="text-lg text-gray-900 font-medium mb-3">{{ stage.title }}</h2>
+            <p class="text-base text-gray-700 leading-relaxed">{{ stage.description }}</p>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </section>
 
-
-<section class="text-gray-600 body-font overflow-hidden">
-  <div class="container px-5 py-16 mx-auto">
-    <div class="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-100 object-cover object-center rounded-lg shadow-lg" src="assets/images/home/joven-reciclando.jpg">
-      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <h1 class="text-gray-900 text-3xl title-font font-medium mb-7">¿Por qué es importante el manejo de residuos?
-        </h1>
-        <p class="leading-relaxed">El manejo adecuado de residuos es fundamental porque protege el medio ambiente al reducir la contaminación y conservar los recursos naturales, mejora la salud pública previniendo enfermedades y manteniendo entornos limpios, y beneficia la economía generando empleos y reduciendo costos mediante el reciclaje. Además, fomenta la sostenibilidad promoviendo la economía circular y reduciendo la huella de carbono, y asegura el cumplimiento de normativas legales evitando sanciones y garantizando prácticas responsables.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-24 mx-auto flex flex-wrap max-w-screen-lg">

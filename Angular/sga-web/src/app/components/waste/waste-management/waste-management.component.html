@@ -1,0 +1,15 @@
+<app-banner
+  imageUrl="assets/banners/banner-waste.png"
+  title="Gestión eficiente de residuos"
+  subtitle="Implementando Soluciones Inteligentes para un manejo responsable de residuos."
+></app-banner>
+
+
+<app-waste-modal></app-waste-modal>
+
+<app-waste-chart *ngIf="userLoginOn && isUser"></app-waste-chart>
+
+<app-waste-tips [userLoginOn]="userLoginOn"></app-waste-tips>
+
+<app-waste-table [userLoginOn]="userLoginOn" [isAdmin]="isAdmin" [isEmploye]="isEmploye"></app-waste-table>
+

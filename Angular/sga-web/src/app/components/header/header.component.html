@@ -1,9 +1,11 @@
+
+
 <app-signin-modal></app-signin-modal>
 <app-signup-modal></app-signup-modal>
-<header class="text-gray-600 body-font bg-gray-100 border border-gray-300">
+<header class="text-gray-600 body-font bg-gray-100 border border-gray-300 relative z-10">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <div class="w-full flex justify-between items-center md:w-auto">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="#">
         <!-- Logo grande -->
         <svg class="w-10 h-10 text-white p-2 bg-green-500 rounded-full hidden md:block" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" />
@@ -20,28 +22,52 @@
         </svg>
         <span class="ml-3 text-xl md:text-xl text-sm">Sga Residuos</span>
       </a>
-      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center md:hidden">
-        <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded mr-2" (click)="openLoginModal()">Iniciar sesión</button>
-        <button class="text-green-500 py-1 px-2 border border-green-500 rounded" (click)="openSignUpModal()">Registrarse</button>
-      </nav>
+      
+      <!-- Mostrar la inicial del usuario y botón de cerrar sesión si está logueado -->
+      <ng-container *ngIf="userLoginOn">
+        <div class="relative">
+          <div class="flex items-center space-x-4 cursor-pointer" (click)="toggleMenu()">
+            <div class="w-10 h-10 bg-transparent border-2 border-green-500 rounded-full flex items-center justify-center text-green-500 font-medium">
+              {{ userInitial }}
+            </div>
+          </div>
+          <!-- Menú desplegable -->
+          <div *ngIf="isMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+            <a (click)="downloadReport()" *ngIf="isAdmin" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Reportes</a>
+      
+            <a  class="block px-4 py-2 text-gray-800 hover:bg-gray-100" (click)="logout()">Cerrar sesión</a>
+          </div>
+        </div>
+      </ng-container>
+
       <button class="inline-flex items-center md:hidden text-gray-900" (click)="toggleMenu()">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
       </button>
     </div>
-    <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center" [ngClass]="{'hidden md:flex': !isMenuOpen, 'flex flex-col md:flex-row': isMenuOpen}">
-     
-   <a [routerLink]="[ '/home' ]" routerLinkActive="active" class="mr-5 hover:text-green-600">Inicio</a>
-   <a [routerLink]="[ '/management-waste' ]" routerLinkActive="active"  class="mr-5 hover:text-green-600">Manejo de residuos</a>
-   <a [routerLink]="[ '/collection-points' ]" class="mr-5 hover:text-green-600">Puntos de recolección</a>
-      <a class="mr-5 hover:text-green-600" href="report"> Reportes de usuarios</a>
-      <a class="mr-5 hover:text-green-600" href="user" *ngIf="userLoginOn" >Usuarios</a>
 
+    <!-- Mostrar botones de iniciar sesión y registrarse si no está logueado -->
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center md:hidden">
+      <ng-container *ngIf="!userLoginOn">
+        <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded mr-2" (click)="openLoginModal()">Iniciar sesión</button>
+        <button class="text-green-500 py-1 px-2 border border-green-500 rounded" (click)="openSignUpModal()">Registrarse</button>
+      </ng-container>
     </nav>
-    <nav class="hidden md:flex md:ml-auto flex-wrap items-center text-base justify-center">
-      <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded" (click)="openLoginModal()">Iniciar sesión</button>
-      <button class="ml-4 text-green-500 py-1 px-2 border border-green-500 rounded" (click)="openSignUpModal()">Registrarse</button>
+
+    <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center" [ngClass]="{'hidden md:flex': !isMenuOpen, 'flex flex-col md:flex-row': isMenuOpen}">
+      <a [routerLink]="[ '/home' ]" routerLinkActive="active" class="mr-5 hover:text-green-600">Inicio</a>
+      <a [routerLink]="[ '/management-waste' ]" routerLinkActive="active"  class="mr-5 hover:text-green-600">Manejo de residuos</a>
+      <a [routerLink]="[ '/collection-points' ]" class="mr-5 hover:text-green-600">Puntos de recolección</a>
+      <a class="mr-5 hover:text-green-600" href="user" *ngIf="userLoginOn && isAdmin">Usuarios</a>
+    </nav>
+
+    <!-- Mostrar botones de iniciar sesión y registrarse si no está logueado -->
+    <nav class="hidden md:flex md:ml-auto flex-wrap items-center text-base justify-center" *ngIf="!userLoginOn">
+      <ng-container>
+        <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded" (click)="openLoginModal()">Iniciar sesión</button>
+        <button class="ml-4 text-green-500 py-1 px-2 border border-green-500 rounded" (click)="openSignUpModal()">Registrarse</button>
+      </ng-container>
     </nav>
   </div>
 </header>
