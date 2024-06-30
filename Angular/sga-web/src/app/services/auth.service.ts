@@ -10,7 +10,7 @@ import { LoginRequest } from '../models/loginRequest';
 export class AuthService {
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserRole: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  currentUserEmail: BehaviorSubject<string> = new BehaviorSubject<string>("")
+  currentUserEmail: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient) { 
     this.currentUserLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token") !== null);
@@ -27,7 +27,6 @@ export class AuthService {
 
           // Capturar el rol del usuario si está presente en la respuesta
           if (response.role) {
-            console.log(response.role)
             sessionStorage.setItem("role", response.role);
             this.currentUserRole.next(response.role);
           }

@@ -94,31 +94,42 @@ export default class UserFormComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-
+    // Mostrar alerta de carga
+    Swal.fire({
+      
+      title: 'Guardando usuario ...',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
+  
     // Deshabilita el botón mientras se realiza la operación
     this.isSaving = true;
-
+  
     const userModal = this.form!.value;
     const request = this.user ? this.userService.update(userModal.id, userModal) : this.userService.create(userModal);
-
+  
     request.pipe(
       finalize(() => {
         this.isSaving = false; // Vuelve a habilitar el botón después de completar la operación
+        Swal.close(); // Cerrar el SweetAlert de carga
       })
     ).subscribe({
       next: () => {
         const message = this.user ? 'Se actualizó el usuario' : 'Se creó el nuevo usuario';
         this.handleSuccess(message);
         this.toggleModal(); // Cierra el modal después de actualizar o crear
-        this.communicationService.notifyDataUpdated(); 
+        this.communicationService.notifyDataUpdated();
       },
       error: response => {
         this.handleError(response);
         this.isSaving = false; // Vuelve a habilitar el botón en caso de error
+        Swal.close(); // Cerrar el SweetAlert de carga en caso de error
       }
     });
   }
-
+  
   private handleError(response: any) {
     // Maneja errores y muestra el mensaje de error
     this.errors = [response.error.responseDetails.message];

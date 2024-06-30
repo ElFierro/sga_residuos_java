@@ -46,7 +46,7 @@ export class WasteTableComponent implements OnInit {
   userEmail: string = '';
 
   ngOnInit(): void {
-    this.loadAll();
+   
     
     this.communicationService.dataUpdated$.subscribe(() => {
       this.loadAll();
@@ -57,6 +57,7 @@ export class WasteTableComponent implements OnInit {
       if (!userLoginOn) {
         this.isAdmin = false;
         this.isEmploye = false;
+        this.userEmail = '';
       }
     });
 
@@ -64,6 +65,11 @@ export class WasteTableComponent implements OnInit {
       this.isAdmin = role === 'Administrador';
       this.isEmploye = role === 'Empleado';
     });
+
+    this.authService.userEmail.subscribe((email) => {
+        this.userEmail = email; 
+    });
+    this.loadAll();
   }
 
   deleteWaste(id: string) {
@@ -79,7 +85,7 @@ export class WasteTableComponent implements OnInit {
   }
 
   loadAll() {
-    const email = this.userRole === 'empleado' ? this.userEmail : undefined;
+    const email = this.isEmploye ? this.userEmail : undefined;
     this.wasteService.list(email).subscribe({
       next: (response: any) => {
         const { data } = response;

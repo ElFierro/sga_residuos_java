@@ -1,0 +1,98 @@
+<section class="bg-green-800 bg-opacity-25 py-40">
+    <div class="flex flex-col text-center w-full mb-12 ">
+      <h2 class="text-3xl font-medium title-font mb-4 text-green-700">RUTAS DE RECOLECCIÓN DE RESIDUOS</h2>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Encuentra puntos de reciclaje cerca de ti.</p>
+    </div>
+    <div class="flex flex-col md:flex-row justify-center md:justify-start p-0 md:p-10">
+    
+      
+      <!-- Mapa -->
+      <div id="map" class="w-full md:w-3/4 h-64 md:h-auto border border-gray-300">
+        <google-map
+          [height]="'100%'"
+          [width]="'100%'"
+          [center]="center"
+          [zoom]="zoom"
+          [options]="mapOptions"
+        >
+          <map-marker
+            *ngFor="let marker of markers"
+            [position]="marker.position"
+            [icon]="marker.icon"
+            [options]="{ draggable: marker.draggable }"
+            (mapClick)="updateMarkerPosition(marker, $event)"
+          ></map-marker>
+          <map-polyline [path]="paths" [options]="polylineOptions"></map-polyline>
+        </google-map>
+      </div>
+      
+      <!-- Panel lateral -->
+      <div class="w-full md:w-2/4 bg-white bg-opacity-50 p-4">
+        <div *ngIf="userLoginOn && isAdmin">
+          <!-- Contenedor para el buscador y botón de agregar -->
+          <div class="flex mb-4">
+            <!-- Input de búsqueda -->
+            <input #addressInput type="text" placeholder="Escriba una dirección..." class="w-full p-2 border border-gray-300 rounded">
+            <!-- Botón de agregar -->
+            <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="geocodeAddress(addressInput.value)">Agregar</button>
+          </div>
+          
+          <!-- Selector de rutas -->
+          <div class="flex items-center mb-4 space-y-4">
+            
+            <select class="w-full p-2 border border-gray-300 rounded" [(ngModel)]="selectedRoute" (change)="onRouteChange()">
+              <option *ngFor="let route of routes" [ngValue]="route">{{ route.name }}</option>
+            </select>
+            
+            <!-- Contenedor para los botones de crear y eliminar ruta -->
+            <div class="ml-2 flex">
+              <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 mx-2" (click)="openCreateRouteModal()">Crear</button>
+              <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-4 mx-2" (click)="deleteRoute()">Eliminar</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabla -->
+        <div class="w-full bg-white bg-opacity-50 p-4" style="max-height: 300px; overflow-y: auto;">
+          <table class="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th class="border border-gray-300 p-2 bg-gray-100 text-green-700">RUTA DE RECOLECCIÓN</th>
+                <th class="border border-gray-300 p-2 bg-gray-100 text-green-700" *ngIf="userLoginOn && isUser || isAdmin">ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let marker of markers; let i = index" class="odd:bg-gray-100 even:bg-white">
+                <td class="border px-4 py-2">{{ marker.address }}</td>
+                <td class="border px-4 py-2 text-center" *ngIf="userLoginOn && isUser || isAdmin">
+                  <div *ngIf="userLoginOn && isUser">
+                    <button title="Reportar punto" class="inline-block p-2 text-gray-700 hover:bg-gray-200 focus:relative" (click)="openCreateReport(marker)">
+                      <svg fill="#000000" viewBox="0 0 48 48" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4">
+                        <path d="M40,47H8a2,2,0,0,1-2-2V3A2,2,0,0,1,8,1H40a2,2,0,0,1,2,2V45A2,2,0,0,1,40,47ZM10,43H38V5H10Z"></path>
+                        <path d="M15,19a2,2,0,0,1-1.41-3.41l4-4a2,2,0,0,1,2.31-.37l2.83,1.42,5-4.16A2,2,0,0,1,30.2,8.4l4,3a2,2,0,1,1-2.4,3.2l-2.73-2.05-4.79,4a2,2,0,0,1-2.17.25L19.4,15.43l-3,3A2,2,0,0,1,15,19Z"></path>
+                        <circle cx="15" cy="24" r="2"></circle>
+                        <circle cx="15" cy="31" r="2"></circle>
+                        <circle cx="15" cy="38" r="2"></circle>
+                        <path d="M33,26H22a2,2,0,0,1,0-4H33a2,2,0,0,1,0,4Z"></path>
+                        <path d="M33,33H22a2,2,0,0,1,0-4H33a2,2,0,0,1,0,4Z"></path>
+                        <path d="M33,40H22a2,2,0,0,1,0-4H33a2,2,0,0,1,0,4Z"></path>
+                      </svg>
+                      
+                    </button>
+                  </div>
+                  <div *ngIf="userLoginOn && isAdmin">
+                    <button title="Eliminar marca" class="inline-block p-2 text-gray-700 hover:bg-gray-200 focus:relative" (click)="removeMarker(i)">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  

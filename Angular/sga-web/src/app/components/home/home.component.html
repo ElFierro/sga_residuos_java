@@ -1,128 +1,35 @@
 <app-banner
   imageUrl="assets/banners/banner-reciclaje.png"
-  title="Sistema de gestión de Residuos"
+  title="SISTEMA DE GESTIÓN DE RESIDUOS"
   subtitle="Transformando residuos en recursos para un futuro sostenible."
 ></app-banner>
 
-<section class="text-gray-600 body-font">
+<section class="text-gray-600 body-font overflow-hidden bg-green-800 bg-opacity-25">
+  <div class="container px-5 py-16 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-100 object-cover object-center rounded-lg shadow-lg" src="assets/images/home/joven-reciclando.jpg">
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <h1 class="text-green-700 text-3xl title-font font-medium mb-7">¿POR QUÉ ES IMPORTANTE EL MANEJO DE RESIDUOS?</h1>
+        <p class="leading-relaxed">El manejo adecuado de residuos es fundamental porque protege el medio ambiente al reducir la contaminación y conservar los recursos naturales, mejora la salud pública previniendo enfermedades y manteniendo entornos limpios, y beneficia la economía generando empleos y reduciendo costos mediante el reciclaje. Además, fomenta la sostenibilidad promoviendo la economía circular y reduciendo la huella de carbono, y asegura el cumplimiento de normativas legales evitando sanciones y garantizando prácticas responsables.</p>
+      </div>
+    </div>
+  </div>
+  
   <div class="container px-5 py-24 mx-auto">
-    <h2 class="text-3xl text-center text-gray-900 font-medium mb-8">¿Cómo funciona nuestro proceso de gestión de residuos?</h2>
-    <p class="text-lg text-center text-gray-900 leading-relaxed mb-12">El proceso de gestión de residuos que hemos diseñado consta de varias etapas:</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <ng-container *ngFor="let stage of stages">
-        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <img [src]="stage.imageUrl" alt="Imagen de {{ stage.title }}" class="w-full h-64 object-cover object-center">
-          <div class="p-6">
-            <h2 class="text-lg text-gray-900 font-medium mb-3">{{ stage.title }}</h2>
-            <p class="text-base text-gray-700 leading-relaxed">{{ stage.description }}</p>
+    <div class="flex flex-col text-center w-full mb-12">
+      <h2 class="text-3xl font-medium title-font mb-4 text-green-700">¿CÓMO FUNCIONA NUESTRO PROCESO DE GESTIÓN DE RESIDUOS?</h2>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">El proceso de gestión de residuos que hemos diseñado consta de varias etapas:</p>
+    </div>
+    <div class="carousel-container">
+      <ngx-slick-carousel class="carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let slide of slides; let i = index" class="slide-item m-2">
+          <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+            <img [src]="slide.imageUrl" alt="Imagen de {{ slide.title }}" class="w-full h-48 object-cover object-center mb-4">
+            <h2 class="text-lg text-gray-900 font-medium mb-2">{{ slide.title }}</h2>
+            <p class="text-base text-gray-700 leading-relaxed">{{ slide.description }}</p>
           </div>
         </div>
-      </ng-container>
+      </ngx-slick-carousel>
     </div>
   </div>
 </section>
-
-
-<section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto flex flex-wrap max-w-screen-lg">
-    <h2 class="text-gray-900 text-3xl mb-8 w-full text-center title-font font-medium">¿Como funciona nuestro proceso gestión de residuos?</h2>
-    <p class="text-lg leading-relaxed text-gray-900 mb-8 text-center">El proceso de gestión de residuos que hemos diseñado consta de varias etapas:</p>
-    <div class="flex flex-wrap -m-4">
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Generación de Residuos:</h2>
-            <p class="leading-relaxed text-base">Esta etapa se refiere a la producción de residuos sólidos en diferentes sectores de la sociedad, como hogares, industrias, comercios, hospitales, entre otros. La cantidad y tipo de residuos generados dependen de factores como la ubicación geográfica, la densidad poblacional, el nivel de industrialización y los hábitos de consumo.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/generacion-de-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Almacenamiento de Residuos:</h2>
-            <p class="leading-relaxed text-base">Los residuos sólidos generados se almacenan temporalmente en contenedores o recipientes adecuados antes de ser recolectados. Es importante que el almacenamiento se realice de forma segura para evitar problemas de salud y contaminación ambiental.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/almacenamiento-de-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Recolección de Residuos:</h2>
-            <p class="leading-relaxed text-base">En esta fase, los residuos sólidos son recolectados y transportados desde los puntos de almacenamiento hasta las instalaciones de tratamiento o disposición final. La recolección puede ser realizada por entidades públicas o privadas, dependiendo del sistema de gestión de residuos de cada localidad.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/recoleccion-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Transporte de Residuos:</h2>
-            <p class="leading-relaxed text-base">Una vez recolectados, los residuos son transportados hacia las plantas de tratamiento, reciclaje, o disposición final. El transporte debe cumplir con normativas y regulaciones para evitar derrames, accidentes y la emisión de contaminantes durante el trayecto.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/transporte-residuos.jpeg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Tratamiento de Residuos:</h2>
-            <p class="leading-relaxed text-base">En esta etapa, los residuos sólidos son sometidos a diferentes procesos de tratamiento con el objetivo de reducir su volumen, recuperar materiales reciclables y convertir residuos orgánicos en compost o biogás.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/tratamiento-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Disposición Final de Residuos:</h2>
-            <p class="leading-relaxed text-base">Los residuos que no pueden ser reciclados ni tratados son llevados a vertederos controlados o incinerados, asegurando que su disposición final se realice de manera segura y minimizando el impacto ambiental.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/disposicion-final-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="flex h-full border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300">
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Planificación de la Gestión de Residuos:</h2>
-            <p class="leading-relaxed text-base">El proceso de gestión de residuos sólidos comienza con la planificación. Esta etapa incluye la identificación de fuentes de generación de residuos, la estimación de la cantidad y tipo de residuos generados, y el diseño de estrategias para su manejo adecuado.</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 lg:w-1/2 md:w-full">
-        <div class="h-full">
-          <img src="assets/images/home/monitoreo-residuos.jpg" alt="Descripción de la imagen" class="w-full h-full object-cover rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-

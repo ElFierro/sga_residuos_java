@@ -9,6 +9,7 @@ import { ModalService } from '../../../services/modal.service';
 import { Waste } from '../../../models/waste.interface';
 import { CommunicationService } from '../../../services/comunication.service';
 import { finalize } from 'rxjs/operators';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-waste-modal',
@@ -32,10 +33,12 @@ export class WasteModalComponent implements OnInit {
   typeWaste: any[] = []; // Lista de tipos de residuos disponibles
   showModal: boolean = false; // Estado de visibilidad del modal
   isSaving: boolean = false; // Estado para controlar si se está guardando
+  userEmail: any;
 
   constructor(
     public modalService: ModalService,
-    private communicationService: CommunicationService
+    private communicationService: CommunicationService,
+    private authService: AuthService
   ) {
     // Suscripción al observable wasteId$ para actualizar el formulario cuando cambie wasteId
     this.modalService.getWasteId$(this.modalId).subscribe(id => {
@@ -45,6 +48,11 @@ export class WasteModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userEmail= '';
+    this.authService.userEmail.subscribe((email) => {
+      this.userEmail = email; 
+  });
+
     // Suscripción al observable showModal$ para controlar la visibilidad del modal
     this.modalService.isModalOpen$(this.modalId).subscribe(show => {
       this.showModal = show;
@@ -86,7 +94,8 @@ export class WasteModalComponent implements OnInit {
         typeWaste: [{ value: '', disabled: true }, Validators.required],
         classification: ['', Validators.required],
         weight: ['', Validators.required],
-        route: ['', Validators.required]
+        route: ['', Validators.required],
+        email: [this.userEmail]
       });
       this.setupClassificationListener();
     }
@@ -111,16 +120,26 @@ export class WasteModalComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-
+  
+    // Mostrar alerta de carga
+    Swal.fire({
+      title: 'Guardando residuo...',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
+  
     // Deshabilita el botón mientras se realiza la operación
     this.isSaving = true;
-
+  
     const wasteModal = this.form!.value;
     const request = this.waste ? this.wasteService.update(wasteModal) : this.wasteService.create(wasteModal);
-
+  
     request.pipe(
       finalize(() => {
         this.isSaving = false; // Vuelve a habilitar el botón después de completar la operación
+        Swal.close(); // Cerrar el SweetAlert de carga
       })
     ).subscribe({
       next: () => {
@@ -132,9 +151,11 @@ export class WasteModalComponent implements OnInit {
       error: response => {
         this.handleError(response);
         this.isSaving = false; // Vuelve a habilitar el botón en caso de error
+        Swal.close(); // Cerrar el SweetAlert de carga en caso de error
       }
     });
   }
+  
 
   private handleError(response: any) {
     // Maneja errores y muestra el mensaje de error

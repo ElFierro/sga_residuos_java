@@ -37,28 +37,52 @@ export class SigninComponent implements OnInit {
     password: ['',Validators.required],
   })
 
-  login(){
-    if(this.loginForm.valid){
-      this.loginError="";
+  login() {
+    if (this.loginForm.valid) {
+      this.loginError = "";
+      // Mostrar animación de carga
+      Swal.fire({
+        title: 'Iniciando sesión...',
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        allowOutsideClick: false
+      });
+
       this.authService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (userData) => {
           console.log(userData);
+          Swal.fire({
+            icon: 'success',
+            title: 'Inicio de sesión exitoso',
+            showConfirmButton: false,
+            timer: 1500
+          });
         },
         error: (errorData) => {
           console.error(errorData);
-          this.loginError=errorData;
+          this.loginError = errorData;
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al iniciar sesión',
+            text: errorData,
+            showConfirmButton: true
+          });
         },
         complete: () => {
-          this.toggleModal()
+          this.toggleModal();
           console.info("Login completo");
           this.loginForm.reset();
         }
-      })
-
-    }
-    else{
+      });
+    } else {
       this.loginForm.markAllAsTouched();
-      alert("Error al ingresar los datos.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en los datos',
+        text: 'Por favor, completa todos los campos correctamente.',
+        showConfirmButton: true
+      });
     }
   }
   

@@ -40,7 +40,8 @@ export default class UserListComponent implements OnInit {
   //Almacena la lista de usuarios
   users: any;
 
-  constructor(private modalService: ModalService, private communicationService: CommunicationService) {}
+  constructor(private modalService: ModalService, 
+    private communicationService: CommunicationService) {}
 
   ngOnInit(): void {
     this.loadAll(); // Carga todos los usuarios al inicializar el componente

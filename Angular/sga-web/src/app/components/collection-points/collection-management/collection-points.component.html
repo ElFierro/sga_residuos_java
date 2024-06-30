@@ -1,0 +1,11 @@
+<app-banner *ngIf="isUser && userLoginOn"
+  imageUrl="assets/banners/banner-collention-points.jpg"
+  title="INNOVACIÓN EN LA RECOLECCIÓN"
+  subtitle="Soluciones inteligentes para un ambiente sostenible."
+></app-banner>
+
+<app-colletion-description *ngIf="isUser && userLoginOn"></app-colletion-description>
+
+<app-collection-map></app-collection-map>
+
+<app-benefits-recycle *ngIf="isUser && userLoginOn"></app-benefits-recycle>

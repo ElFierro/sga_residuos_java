@@ -1,28 +1,27 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import Swal from 'sweetalert2';
-import { RouteService } from '../../services/route.service';
+import { RouteService } from '../../../services/route.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ReportService } from '../../services/report.service';
-import { ReportPoint } from '../../models/report-point.interface';
-import { AuthService } from '../../services/auth.service';
+import { ReportService } from '../../../services/report.service';
+import { ReportPoint } from '../../../models/report-point.interface';
+import { AuthService } from '../../../services/auth.service';
 
 interface Marker {
   position: google.maps.LatLngLiteral;
   draggable: boolean;
   address: string;
-  icon: string; // Nueva propiedad para el icono
+  icon: string;
 }
-
 @Component({
-  selector: 'app-collection-points',
+  selector: 'app-collection-map',
   standalone: true,
-  imports: [GoogleMapsModule, FormsModule, NgFor, NgIf],
-  templateUrl: './collection-points.component.html',
-  styleUrls: ['./collection-points.component.css'],
+  imports:[GoogleMapsModule, FormsModule, NgFor, NgIf],
+  templateUrl: './collection-map.component.html',
+  styleUrl: './collection-map.component.css'
 })
-export class CollectionPointsComponent implements OnInit {
+export class CollectionMapComponent implements OnInit {
   // Servicios de Google Maps para geocodificación y direcciones
   geocoder = new google.maps.Geocoder();
   directionsService = new google.maps.DirectionsService();
@@ -266,25 +265,46 @@ export class CollectionPointsComponent implements OnInit {
   }
 
   removeMarker(index: number) {
-    const coordinateId = this.selectedRoute.coordinates[index].id;
-    const selectedRouteId = this.selectedRoute.id;
-    this.routeService.removeCoordinateFromRoute(this.selectedRoute.id, coordinateId).subscribe((updatedRoute) => {
-      // Actualiza la ruta seleccionada con la nueva lista de coordenadas
-      this.selectedRoute = updatedRoute;
+    // Muestra la alerta de confirmación
+    Swal.fire({
+      title: '¿Estás seguro que quiere eliminar esta marca?',
+      text: 'No podrás revertir esto',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Eliminando marca...',
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          allowOutsideClick: false
+        });
+        // Si el usuario confirma, elimina la marca
+        const coordinateId = this.selectedRoute.coordinates[index].id;
+        const selectedRouteId = this.selectedRoute.id;
+        this.routeService.removeCoordinateFromRoute(this.selectedRoute.id, coordinateId).subscribe((updatedRoute) => {
+          // Actualiza la ruta seleccionada con la nueva lista de coordenadas
+          this.selectedRoute = updatedRoute;
   
-      // Actualiza la lista de rutas para reflejar los cambios
-      const routeIndex = this.routes.findIndex(route => route.id === updatedRoute.id);
-      this.routes[routeIndex] = updatedRoute;
+          // Actualiza la lista de rutas para reflejar los cambios
+          const routeIndex = this.routes.findIndex(route => route.id === updatedRoute.id);
+          this.routes[routeIndex] = updatedRoute;
   
-      // Elimina la coordenada del marcador
-      this.markers.splice(index, 1);
-      this.updateMarkersIcons();
-      this.updateCoordinates();
-      this.updatePaths();
+          // Elimina la coordenada del marcador
+          this.markers.splice(index, 1);
+          this.updateMarkersIcons();
+          this.updateCoordinates();
+          this.updatePaths();
   
-      // Restaura la ruta seleccionada original
-      this.selectedRoute = this.routes.find(route => route.id === selectedRouteId);
-      Swal.fire('Eliminado', 'La coordenada ha sido eliminada.', 'success');
+          // Restaura la ruta seleccionada original
+          this.selectedRoute = this.routes.find(route => route.id === selectedRouteId);
+          Swal.fire('Eliminado', 'La coordenada ha sido eliminada.', 'success');
+        });
+      }
     });
   }
   
@@ -295,9 +315,8 @@ export class CollectionPointsComponent implements OnInit {
     }
   
     Swal.fire({
-      title: '¿Está seguro?',
+      title: '¿Está seguro que quiere eliminar esta ruta?',
       text: '¡No podrás revertir esto!',
-      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -348,7 +367,7 @@ export class CollectionPointsComponent implements OnInit {
           details: details,
           status: "Pendiente"
         };
-        this.reportService.createCollectionPoint(report).subscribe(
+        this.reportService.createReport(report).subscribe(
           (report) => {
             console.log('Punto de recolección creado:', report);
             // Aquí puedes mostrar un mensaje de éxito o realizar otras acciones

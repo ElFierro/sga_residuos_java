@@ -20,12 +20,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements EncriptService {
-	
+public class UserService {
+	private final PasswordEncoder passwordEncoder;
 	
 
 	@Autowired
@@ -316,9 +316,9 @@ public class UserService implements EncriptService {
 		return existingUser;
 	}
 
-	@Override
+	
 	public String encrypPassword(String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt());
+		return passwordEncoder.encode(password);
 	}
 
 }

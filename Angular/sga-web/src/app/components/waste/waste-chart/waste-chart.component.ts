@@ -60,7 +60,6 @@ export class WasteChartComponent implements OnInit, OnDestroy {
   loadAllTypeWasteByClassification() {
     this.wasteService.listTypeWasteByClassification().subscribe({
       next: (response: any) => {
-        console.log(response);
         const { data } = response;
         if (data) {
           const usableWasteData = data.filter((item: WasteData) => item.classification === 'Aprovechable');

@@ -17,7 +17,7 @@ export class ReportService {
     });
   }
 
-  createCollectionPoint(report: ReportPoint): Observable<ReportPoint> {
+  createReport(report: ReportPoint): Observable<ReportPoint> {
     return this.http.post<ReportPoint>(environment.apiEndpoints.reportsService, report);
   }
 }
