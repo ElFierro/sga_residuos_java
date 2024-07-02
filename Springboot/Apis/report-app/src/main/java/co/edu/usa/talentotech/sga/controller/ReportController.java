@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.usa.talentotech.sga.entity.CollectionPoint;
@@ -42,8 +43,8 @@ public class ReportController {
     }
     
     @GetMapping("/")
-    public ResponseEntity<List<CollectionPoint>> getAllCollectionPoints() {
-        List<CollectionPoint> collectionPoints = reportService.getAllCollectionPoints();
+    public ResponseEntity<List<CollectionPoint>> getAllCollectionPoints( @RequestParam(required = false) String email) {
+        List<CollectionPoint> collectionPoints = reportService.getAllCollectionPoints(email);
         return ResponseEntity.ok(collectionPoints);
     }
 

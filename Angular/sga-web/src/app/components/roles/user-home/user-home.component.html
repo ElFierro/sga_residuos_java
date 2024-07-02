@@ -1,0 +1,51 @@
+<app-banner
+  imageUrl="assets/banners/banner-reciclaje.png"
+  title="¡BIENVENIDO A SGA RESIDUOS!"
+  subtitle="La mejor plataforma para la gestión de residuos."
+></app-banner>
+
+<div class="min-h-screen bg-gray-100">
+  <!-- Features Section -->
+  <div class="container mx-auto py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-green-700">Nuestras Funcionalidades</h2>
+      <p class="text-gray-600 mt-4">Explora las características que ofrecemos para una mejor gestión de residuos.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Tarjeta de Gestión de Residuos -->
+      <a [routerLink]="['/management-waste']" class="block bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex items-center p-6">
+          <svg class="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v1H5a1 1 0 000 2h4v2H5a1 1 0 000 2h4v1a1 1 0 002 0v-1h4a1 1 0 100-2h-4v-2h4a1 1 0 100-2h-4V4a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+          </svg>
+          <h3 class="text-xl font-bold ml-4 text-green-700">Gestión de Residuos</h3>
+        </div>
+        <p class="text-gray-600 px-6 pb-6">Administra y clasifica todos tus residuos de manera eficiente.</p>
+      </a>
+
+      <!-- Tarjeta de Puntos de Recolección -->
+      <a [routerLink]="['/collection-points']" class="block bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex items-center p-6">
+          <svg class="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 2a1 1 0 00-1 1v14a1 1 0 001.5.866L10 16.1l2.5 1.766A1 1 0 0014 17V3a1 1 0 00-1-1H7z"></path>
+          </svg>
+          <h3 class="text-xl font-bold ml-4 text-green-700">Puntos de Recolección</h3>
+        </div>
+        <p class="text-gray-600 px-6 pb-6">Encuentra y gestiona los puntos de recolección cercanos a ti.</p>
+      </a>
+
+      <!-- Tarjeta de Reportes Detallados -->
+      <a [routerLink]="['/report']" class="block bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex items-center p-6">
+          <svg class="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm10 3a1 1 0 000 2h2a1 1 0 100-2h-2zm-4 0a1 1 0 000 2h2a1 1 0 100-2H8z" clip-rule="evenodd"></path>
+          </svg>
+          <h3 class="text-xl font-bold ml-4 text-green-700">Reportes Detallados</h3>
+        </div>
+        <p class="text-gray-600 px-6 pb-6">Genera reportes detallados sobre la gestión de tus residuos.</p>
+      </a>
+    </div>
+  </div>
+</div>
+

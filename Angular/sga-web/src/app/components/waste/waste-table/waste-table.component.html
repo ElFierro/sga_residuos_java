@@ -1,4 +1,4 @@
-<section class="text-gray-600 body-font py-40 bg-green-800 bg-opacity-25" *ngIf="userLoginOn && (isAdmin || isEmploye )">
+<section class="text-gray-600 body-font py-10 bg-white" *ngIf="userLoginOn && (isAdmin || isEmploye )">
     <div class="container px-5 py-3 mx-auto">
       <div class="flex flex-col text-center w-full">
         <h1 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-green-700">
@@ -8,7 +8,7 @@
       <div class="lg:w-4/4 md:w-3/3 mx-auto py-5">
         <div class="flex flex-wrap -mx-2">
           <div class="p-2 w-full md:w-1/2">
-            <div class="relative" *ngIf="userLoginOn && isAdmin ">
+            <div class="relative" *ngIf="userLoginOn && isAdmin">
               <input 
                 type="text"
                 id="hero-field"

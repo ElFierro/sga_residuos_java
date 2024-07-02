@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -23,7 +23,10 @@ export class SigninComponent implements OnInit {
   loginError:string="";
 
 
-  constructor(private fb: FormBuilder, public modalService: ModalService, private authService: AuthService) {
+  constructor(private fb: FormBuilder,
+     public modalService: ModalService,
+      private authService: AuthService,
+      private router: Router) {
     this.modalService.isModalOpen$('signin').subscribe(show => {
       this.showModal = show;
     });
@@ -58,6 +61,22 @@ export class SigninComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
+
+          const userRole = this.authService.getUserRole();
+          switch (userRole) {
+            case 'Administrador':
+              this.router.navigateByUrl('/admin-home');
+              break;
+            case 'Empleado':
+              this.router.navigateByUrl('/employe-home');
+              break;
+            case 'Usuario':
+              this.router.navigateByUrl('/user-home');
+              break;
+            default:
+              this.router.navigateByUrl('/home'); // Redirigir a una página común si no hay rol definido
+              break;
+          }
         },
         error: (errorData) => {
           console.error(errorData);

@@ -56,6 +56,11 @@ db.resources.insertMany([
     "code": "Clasificacion"
   },
   {
+    "_id": ObjectId("6675fafa20e8f1b71ffcd631"),
+    "classification": "Peligrosos",
+    "code": "Clasificacion"
+  },
+  {
     "_id": ObjectId("665ff387b64bd656a004a915"),
     "type": "Plástico",
     "classification": "Aprovechable",
@@ -64,7 +69,7 @@ db.resources.insertMany([
   {
     "_id": ObjectId("665ff38bb64bd656a004a916"),
     "classification": "Aprovechable",
-    "type": "Cartón",
+    "type": "Cartón y papel",
     "code": "Tipo"
   },
   {
@@ -76,37 +81,55 @@ db.resources.insertMany([
   {
     "_id": ObjectId("665ff394b64bd656a004a918"),
     "classification": "Aprovechable",
-    "type": "Papel",
+    "type": "Metales",
     "code": "Tipo"
   },
   {
     "_id": ObjectId("665ff397b64bd656a004a919"),
     "classification": "Aprovechable",
-    "type": "Metal",
+    "type": "Textiles",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675dcb520e8f1b71ffcd624"),
+    "classification": "Aprovechable",
+    "type": "Tetrabrik",
     "code": "Tipo"
   },
   {
     "_id": ObjectId("665ff561b64bd656a004a91a"),
     "classification": "Orgánico aprovechable",
-    "type": "Restos de comida",
+    "type": "Comida Preparada",
     "code": "Tipo"
   },
   {
     "_id": ObjectId("665ff566b64bd656a004a91b"),
     "classification": "Orgánico aprovechable",
-    "type": "Desechos agrícolas",
+    "type": "Alimentos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675df9d20e8f1b71ffcd629"),
+    "classification": "Orgánico aprovechable",
+    "type": "Jardinería",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675dfb620e8f1b71ffcd62a"),
+    "classification": "Orgánico aprovechable",
+    "type": "Poda",
     "code": "Tipo"
   },
   {
     "_id": ObjectId("665ff615b64bd656a004a91c"),
     "classification": "No aprovechables",
-    "type": "Papel higiénico",
+    "type": "Sanitarios",
     "code": "Tipo"
   },
   {
     "_id": ObjectId("665ff619b64bd656a004a91d"),
     "classification": "No aprovechables",
-    "type": "Servilletas",
+    "type": "Plástico",
     "code": "Tipo"
   },
   {
@@ -118,7 +141,55 @@ db.resources.insertMany([
   {
     "_id": ObjectId("665ff61fb64bd656a004a91f"),
     "classification": "No aprovechables",
-    "type": "Papel metalizado",
+    "type": "Electrónicos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675e2e820e8f1b71ffcd62b"),
+    "classification": "No aprovechables",
+    "type": "Vidrio",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675e33320e8f1b71ffcd62c"),
+    "classification": "No aprovechables",
+    "type": "Demolición",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675fa2420e8f1b71ffcd62d"),
+    "classification": "Peligrosos",
+    "type": "Químicos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675fa7920e8f1b71ffcd62e"),
+    "classification": "Peligrosos",
+    "type": "Biológicos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675fadc20e8f1b71ffcd62f"),
+    "classification": "Peligrosos",
+    "type": "Tóxicos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675faef20e8f1b71ffcd630"),
+    "classification": "Peligrosos",
+    "type": "Inflamables",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675fafa20e8f1b71ffcd631"),
+    "classification": "Peligrosos",
+    "type": "Corrosivos",
+    "code": "Tipo"
+  },
+  {
+    "_id": ObjectId("6675fb1520e8f1b71ffcd632"),
+    "classification": "Peligrosos",
+    "type": "Radiactivos",
     "code": "Tipo"
   }
 ]);

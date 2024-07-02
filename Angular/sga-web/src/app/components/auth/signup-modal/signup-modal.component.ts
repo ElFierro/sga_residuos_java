@@ -1,11 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { crossPasswordMatchingValidatior, customPasswordValidator } from './register-custom-validators';
 import { UserService } from '../../../services/user.service';
 import { MyValidations } from '../../../utils/my-validations';
 import { ModalService } from '../../../services/modal.service';
+import { RegisterRequest } from '../../../models/registerRequest';
+import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup-modal',
@@ -44,7 +47,9 @@ export default class SignupComponent implements OnInit {
     validators: crossPasswordMatchingValidatior
   });
 
-  constructor(public modalService: ModalService) {
+  constructor(public modalService: ModalService,
+     private authService: AuthService,
+     private router: Router) {
     // Suscripción al observable isModalOpen$ para controlar la visibilidad del modal
     this.modalService.isModalOpen$(this.modalId).subscribe(show => {
       this.showModal = show;
@@ -89,21 +94,50 @@ export default class SignupComponent implements OnInit {
     // Deshabilita el botón mientras se realiza la operación
     this.isSaving = true;
 
-    const userForm = this.formGroup.value;
+    const userForm: RegisterRequest = {
+      email: this.formGroup.value.email,
+      password: this.formGroup.value.password,
+      rol: "Usuario",
+      city: this.formGroup.value.city,
+      name: this.formGroup.value.name
+    };
 
-    // Consume el servicio para crear usuario
-    this.userService.create(userForm)
-      .subscribe({
-        next: () => {
-          this.errors = [];
-		  this.toggleModal(); // Cierra el modal después de actualizar o crear
-        },
-        error: response => {
-          this.errors = response.error.responseDetails.message;
-          console.log(this.errors);
-        }
-      });
-  }
+    Swal.fire({
+      title: 'Creando usuario...',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
+    this.authService.register(userForm)
+    .subscribe({
+      next: () => {
+        this.errors = [];
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.toggleModal(); // Cierra el modal después de registrar
+
+      },
+      error: response => {
+        this.errors = response.error.responseDetails.message;
+        console.log(this.errors);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al registrar',
+          text: this.errors.join(', '),
+          showConfirmButton: true
+        });
+      },
+      complete: () => {
+        this.isSaving = false;
+      }
+    });
+}
 
   // Getters para los campos del formulario
   get nameField(): FormControl<string> {

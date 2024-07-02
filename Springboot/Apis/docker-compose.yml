@@ -16,6 +16,30 @@ services:
     depends_on:
       - mongodb     
 
+  routesapp:
+    build: ./routes-app
+    container_name: "routesapp-dockercompose"
+    ports:
+      - 8282:8282
+    depends_on:
+      - mongodb  
+
+  reportapp:
+    build: ./report-app
+    container_name: "reportapp-dockercompose"
+    ports:
+      - 8383:8383
+    depends_on:
+      - mongodb  
+
+  authapp:
+    build: ./auth-app
+    container_name: "authapp-dockercompose"
+    ports:
+      - 8484:8484
+    depends_on:
+      - mongodb       
+
   mongodb:
     image: mongo:latest
     container_name: mongodb-dockercompose

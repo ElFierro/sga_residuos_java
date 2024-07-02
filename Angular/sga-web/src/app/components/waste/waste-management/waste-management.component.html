@@ -1,11 +1,11 @@
-<app-banner *ngIf="userLoginOn && isUser"
+<app-banner 
   imageUrl="assets/banners/banner-waste.png"
   title="GESTIÓN EFICIENTE DE RESIDUOS"
   subtitle="Implementando Soluciones Inteligentes para un manejo responsable de residuos."
 ></app-banner>
 
 
-<app-waste-modal *ngIf="isAdmin && userLoginOn"></app-waste-modal>
+<app-waste-modal *ngIf="(isAdmin || isEmploye) && userLoginOn"></app-waste-modal>
 
 <app-waste-chart *ngIf="userLoginOn && isUser"></app-waste-chart>
 

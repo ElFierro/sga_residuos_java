@@ -1,4 +1,4 @@
-<section class="bg-green-800 bg-opacity-25 py-40">
+<section class="py-10">
     <div class="flex flex-col text-center w-full mb-12 ">
       <h2 class="text-3xl font-medium title-font mb-4 text-green-700">RUTAS DE RECOLECCIÓN DE RESIDUOS</h2>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Encuentra puntos de reciclaje cerca de ti.</p>
@@ -27,10 +27,10 @@
       </div>
       
       <!-- Panel lateral -->
-      <div class="w-full md:w-2/4 bg-white bg-opacity-50 p-4">
-        <div *ngIf="userLoginOn && isAdmin">
+      <div class="w-full md:w-2/4 bg-green-300 bg-opacity-25 p-4">
+        <div >
           <!-- Contenedor para el buscador y botón de agregar -->
-          <div class="flex mb-4">
+          <div class="flex mb-4" *ngIf="userLoginOn && isAdmin"> 
             <!-- Input de búsqueda -->
             <input #addressInput type="text" placeholder="Escriba una dirección..." class="w-full p-2 border border-gray-300 rounded">
             <!-- Botón de agregar -->
@@ -45,7 +45,7 @@
             </select>
             
             <!-- Contenedor para los botones de crear y eliminar ruta -->
-            <div class="ml-2 flex">
+            <div class="ml-2 flex" *ngIf="userLoginOn && isAdmin">
               <button class="w-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 mx-2" (click)="openCreateRouteModal()">Crear</button>
               <button class="w-auto bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-4 mx-2" (click)="deleteRoute()">Eliminar</button>
             </div>

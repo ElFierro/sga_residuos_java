@@ -48,6 +48,7 @@ export class CollectionMapComponent implements OnInit {
   location: string ="";
   details: string ="";
   status: string ="";
+  userEmail: string ="";
   userLoginOn:boolean=false;
   isUser: boolean = false;
  isAdmin: boolean = false;
@@ -90,6 +91,10 @@ export class CollectionMapComponent implements OnInit {
     this.authService.userRole.subscribe((role) => {
       this.isAdmin = role === 'Administrador';
       this.isUser = role === 'Usuario';
+    });
+
+    this.authService.getUserEmail().subscribe((email) => {
+        this.userEmail = email;
     });
   }
   constructor(private routeService: RouteService, private reportService: ReportService, private authService: AuthService) {}
@@ -343,6 +348,7 @@ export class CollectionMapComponent implements OnInit {
   }
 
   openCreateReport(marker: Marker) {
+    console.log(this.userEmail)
     Swal.fire({
       title: 'Crear reporte',
       html:
@@ -365,7 +371,8 @@ export class CollectionMapComponent implements OnInit {
         const report: ReportPoint = {
           location: marker.address,
           details: details,
-          status: "Pendiente"
+          status: "Pendiente",
+          email: this.userEmail
         };
         this.reportService.createReport(report).subscribe(
           (report) => {

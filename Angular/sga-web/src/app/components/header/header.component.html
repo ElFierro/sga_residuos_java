@@ -1,7 +1,7 @@
 <app-signin-modal></app-signin-modal>
 <app-signup-modal></app-signup-modal>
 
-<header class="bg-gray-100 bg-opacity-95 text-white shadow-lg fixed top-0 w-full z-10">
+<header class="bg-green-200 bg-opacity-95 text-white shadow-lg fixed top-0 w-full z-10">
   <div class="container mx-auto flex items-center justify-between py-4 px-6">
     <div class="flex items-center">
       <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="/home">
@@ -28,15 +28,21 @@
         <a [routerLink]="['/collection-points']" class="mr-5 hover:text-green-600">Puntos de recolección</a>
       </div>
       <div *ngIf="userLoginOn; else loginButtons" class="relative flex items-center">
-        <div class="ml-4 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center cursor-pointer" (click)="toggleMenu()">
+        <div class="ml-4 w-8 h-8 bg-green-500 border border-green-500 rounded-full flex items-center justify-center cursor-pointer" (click)="toggleMenu()">
           <span class="text-white">{{ userInitial }}</span>
         </div>
         <div *ngIf="!isMenuHidden" class="absolute right-0 mt-2 w-48 bg-gray-100 bg-opacity-95 rounded-md shadow-lg z-20" style="top: 100%; left: 50%; transform: translateX(-50%);">
           <ul>
-            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/report']" *ngIf="isAdmin || isUser">Reportes</li>
+            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/report']" *ngIf="isAdmin || isUser">
+              {{ isAdmin ? 'Reportes' : 'Mis reportes' }}
+            </li>
             <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/user']" *ngIf="isAdmin">Usuarios</li>
-            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/management-waste']" *ngIf="isAdmin">Residuos</li>
-            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/collection-points']" *ngIf="isAdmin">Rutas</li>
+            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/management-waste']" *ngIf="isAdmin || isEmploye">
+              {{ isAdmin ? 'Residios' : 'Mis residuos' }}
+            </li>
+            <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" [routerLink]="['/collection-points']" *ngIf="isAdmin || isEmploye">
+              {{ isAdmin ? 'Rutas' : 'Rutas asignadas' }}
+            </li>
             <li class="py-2 px-4 hover:bg-gray-200 cursor-pointer" (click)="logout()">Cerrar sesión</li>
           </ul>
         </div>
@@ -44,7 +50,7 @@
       <ng-template #loginButtons>
         <div class="lg:flex lg:space-x-4 lg:ml-4">
           <button class="bg-green-500 text-gray-100 py-1 px-2 border border-green-500 rounded" (click)="openLoginModal()">Iniciar sesión</button>
-          <button class="ml-4 text-green-500 py-1 px-2 border border-green-500 rounded" (click)="openSignUpModal()">Registrarse</button>
+          <button class="ml-4 text-gray-500 py-1 px-2 border border-gray-400 rounded" (click)="openSignUpModal()">Registrarse</button>
         </div>
       </ng-template>
     </nav>

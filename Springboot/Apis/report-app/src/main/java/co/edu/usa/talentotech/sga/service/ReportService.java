@@ -31,8 +31,13 @@ public class ReportService {
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
     
-    public List<CollectionPoint> getAllCollectionPoints() {
-        return collectionPointRepository.findAll();
+    public List<CollectionPoint> getAllCollectionPoints(String email) {
+    	if (email != null) {
+    		return collectionPointRepository.findByEmail(email);
+		} else {
+			 return collectionPointRepository.findAll();
+		}
+       
     }
 
     public CollectionPoint getCollectionPointById(String id) {
@@ -44,8 +49,10 @@ public class ReportService {
     }
 
     public CollectionPoint updateCollectionPoint(String id, CollectionPoint collectionPoint) {
-        collectionPoint.setId(id);
-        return collectionPointRepository.save(collectionPoint);
+    	CollectionPoint beforeColletion = getCollectionPointById(id);
+    	beforeColletion.setStatus(collectionPoint.getStatus());
+    	beforeColletion.setId(id);
+        return collectionPointRepository.save(beforeColletion);
     }
 
     public void deleteCollectionPoint(String id) {

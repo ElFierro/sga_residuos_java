@@ -1,7 +1,5 @@
 package co.edu.usa.talentotech.sga.entity;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -24,5 +22,6 @@ public class CollectionPoint {
     private String location;
     private String details;
     private String status;
+    private String email;
 
 }

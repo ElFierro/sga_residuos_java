@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { LoginRequest } from '../models/loginRequest';
+import { RegisterRequest } from '../models/registerRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,28 @@ export class AuthService {
 
   login(credentials: LoginRequest): Observable<any> {
     return this.http.post<any>(environment.apiEndpoints.authService + "auth/login", credentials).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          sessionStorage.setItem("token", response.token);
+          this.currentUserLoginOn.next(true);
+
+          // Capturar el rol del usuario si está presente en la respuesta
+          if (response.role) {
+            sessionStorage.setItem("role", response.role);
+            this.currentUserRole.next(response.role);
+          }
+          if (response.email) {
+            sessionStorage.setItem("email", response.email);
+            this.currentUserEmail.next(response.email);
+          }
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  register(registerRequest: RegisterRequest): Observable<any> {
+    return this.http.post<any>(environment.apiEndpoints.authService + "auth/register", registerRequest).pipe(
       tap((response) => {
         if (response && response.token) {
           sessionStorage.setItem("token", response.token);
@@ -76,5 +99,9 @@ export class AuthService {
 
   getUserEmail(): Observable<string> {
     return this.currentUserEmail.asObservable();
+  }
+
+  getUserRole(): string {
+    return sessionStorage.getItem("role") || "";
   }
 }
