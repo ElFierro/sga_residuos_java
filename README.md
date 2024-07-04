@@ -32,11 +32,12 @@ Asegúrese que se generaron los archivos **jar** en cada proyecto en la carpeta 
 
 #### EJECUTE EL ARCHIVO DOCKER-COMPOSE
 
-En la ruta **...\Apis** es decir esta misma carpeta **ejecutamos** en una **terminal** el siguiente comando para levantar el archivo Docker-compose:
+En la ruta donde este ubicado el archivo **docker-compose.yml** se debe **Ejecutar** en una **terminal** el siguiente comando:
 
 ```
 Docker-compose up --build -d
 ```
+
 #### EJECUTAR PROYECTO WEB
 
 Abrir el proyecto sga-web y ejecutar el comando
