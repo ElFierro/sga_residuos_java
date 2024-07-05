@@ -132,6 +132,7 @@ Página web interactiva encargada de consumir todos los microservicios propuesto
 - Spring web
 - Lombok
 - Core 1.0 - (Maven arquetipos)
+- Spring validation
 - Security crypto
 - Starter mail
 - Jasperreports
@@ -163,7 +164,6 @@ Angular 17
 - Sweetalert2
 - Ngx-pagination
 - Ngx-slick-carousel
-- Slick-carousel
 
 ## Autor ✒️
 

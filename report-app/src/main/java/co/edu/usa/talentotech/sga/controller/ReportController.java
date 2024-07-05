@@ -30,7 +30,7 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping("/collection-points")
-    public ResponseEntity<byte[]> getCollectionPointsReport() {
+    public ResponseEntity<byte[]> getReports() {
         try {
             byte[] pdfReport = reportService.generateCollectionPointsReport();
             return ResponseEntity.ok()
@@ -43,13 +43,13 @@ public class ReportController {
     }
     
     @GetMapping("/")
-    public ResponseEntity<List<CollectionPoint>> getAllCollectionPoints( @RequestParam(required = false) String email) {
+    public ResponseEntity<List<CollectionPoint>> getAllReports( @RequestParam(required = false) String email) {
         List<CollectionPoint> collectionPoints = reportService.getAllCollectionPoints(email);
         return ResponseEntity.ok(collectionPoints);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CollectionPoint> getCollectionPointById(@PathVariable String id) {
+    public ResponseEntity<CollectionPoint> getReportById(@PathVariable String id) {
         CollectionPoint collectionPoint = reportService.getCollectionPointById(id);
         if (collectionPoint == null) {
             return ResponseEntity.notFound().build();
@@ -58,19 +58,19 @@ public class ReportController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<CollectionPoint> createCollectionPoint(@RequestBody CollectionPoint collectionPoint) {
+    public ResponseEntity<CollectionPoint> createReport(@RequestBody CollectionPoint collectionPoint) {
         CollectionPoint createdCollectionPoint = reportService.createCollectionPoint(collectionPoint);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCollectionPoint);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CollectionPoint> updateCollectionPoint(@PathVariable String id, @RequestBody CollectionPoint collectionPoint) {
+    public ResponseEntity<CollectionPoint> updateReport(@PathVariable String id, @RequestBody CollectionPoint collectionPoint) {
         CollectionPoint updatedCollectionPoint = reportService.updateCollectionPoint(id, collectionPoint);
         return ResponseEntity.ok(updatedCollectionPoint);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCollectionPoint(@PathVariable String id) {
+    public ResponseEntity<Void> deleteReport(@PathVariable String id) {
     	reportService.deleteCollectionPoint(id);
         return ResponseEntity.noContent().build();
     }
